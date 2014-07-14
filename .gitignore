@@ -1,5 +1,5 @@
 # Bootstrap
-app/bootstrap*
+var/bootstrap*
 
 # Symfony directories
 vendor/*
@@ -14,3 +14,16 @@ app/config/parameters.yml
 
 # Composer
 composer.phar
+
+# other
+/nbproject/private/
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+/build/
+/vendor/
+/bin/*
+!bin/console
+!bin/symfony_requirements
+/var/SymfonyRequirements.php
+/app/SymfonyRequirements.php
+/composer.lock

@@ -1,0 +1,5 @@
+mschnide_wamp:
+    resource: "@MschnideWampBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
