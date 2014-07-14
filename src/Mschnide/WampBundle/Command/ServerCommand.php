@@ -2,6 +2,7 @@
 
 namespace Mschnide\WampBundle\Command;
 
+use Mschnide\WampBundle\WAMP\AuthenticationProvider;
 use Mschnide\WampBundle\WAMP\Manager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -45,12 +46,15 @@ class ServerCommand extends ContainerAwareCommand
         $server = $this->input->getArgument('server');
         $port = (int) $this->input->getArgument('port');
 
-        $router = new Router();
-
         $manager = new Manager($this->getContainer(), 'realm1', $this->output);
+        $authProvider = new AuthenticationProvider($this->getContainer());
+
         $transportProvider = new RatchetTransportProvider($server, $port);
+
+        $router = new Router();
         $router->addTransportProvider($transportProvider);
         $router->setManager($manager);
+        $router->setAuthenticationProvider($authProvider);
 
 
         $this->output->writeln('Starting wamp: ' . $server . ':' . $port);
