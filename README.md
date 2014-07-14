@@ -9,8 +9,8 @@ based on
 - voryx/thruway dev-master
 
 
-0) composer update --no-dev
----------------------------
+0) composer update
+------------------
 To add the needed dependencies
 
 1) bin/console doctrine:schema:update --force
@@ -26,7 +26,9 @@ To run a web server ...
 (in a separate console)
 To start the wamp2 server
 
-
+4) browser http://localhost:8000/
+---------------------------------
+See result in browser
 
 
 
