@@ -33,8 +33,8 @@ class ServerCommand extends ContainerAwareCommand
         $this
             ->setName('mschnide:wamp:server')
             ->setDescription('Starts the WAMP2 Server')
-            ->addArgument('server', null, 'server name', '0.0.0.0')
-            ->addArgument('port', null, 'server port', '8880')
+            ->addArgument('server', null, 'server name', '')
+            ->addArgument('port', null, 'server port', 0)
         ;
     }
 
@@ -45,16 +45,23 @@ class ServerCommand extends ContainerAwareCommand
 
         $server = $this->input->getArgument('server');
         $port = (int) $this->input->getArgument('port');
-
-        $manager = new Manager($this->getContainer(), 'realm1', $this->output);
-        $authProvider = new AuthenticationProvider($this->getContainer());
+        if (empty($server)) {
+            $server = $this->getContainer()->getParameter('mschnide_wamp.server');
+        }
+        if ($port <= 0) {
+            $port = (int) $this->getContainer()->getParameter('mschnide_wamp.port');
+        }
 
         $transportProvider = new RatchetTransportProvider($server, $port);
 
         $router = new Router();
         $router->addTransportProvider($transportProvider);
-        $router->setManager($manager);
-        $router->setAuthenticationProvider($authProvider);
+        $router->setManager(
+            $this->getContainer()->get('mschnide_wamp.manager'));
+        $router->setAuthenticationProvider(
+            $this->getContainer()->get('mschnide_wamp.authenticationprovider'));
+        $router->onOpen(
+            $this->getContainer()->get('mschnide_wamp.onopentransport'));
 
 
         $this->output->writeln('Starting wamp: ' . $server . ':' . $port);
