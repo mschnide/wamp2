@@ -4,17 +4,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="mschnide_wamp.example.class">Mschnide\WampBundle\Example</parameter>
+        <parameter key="mschnide_wamp.manager.class">Mschnide\WampBundle\WAMP\Manager</parameter>
+        <parameter key="mschnide_wamp.manager.realm">realm1</parameter>
+        <parameter key="mschnide_wamp.authenticationprovider.class">Mschnide\WampBundle\WAMP\AuthenticationManager</parameter>
     </parameters>
 
     <services>
-        <service id="mschnide_wamp.example" class="%mschnide_wamp.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="mschnide_wamp.manager" class="%mschnide_wamp.manager.class%">
+            <argument type="service" id="service_container" />
+            <argument>%mschnide_wamp.manager.realm%</argument>
+        </service>
+        <service id="mschnide_wamp.authenticationprovider" class="%mschnide_wamp.authenticationprovider.class%">
+            <argument type="service" id="service_container" />
         </service>
     </services>
-    -->
+
 </container>

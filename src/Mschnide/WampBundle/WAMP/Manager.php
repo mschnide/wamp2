@@ -156,10 +156,28 @@ class Manager implements ManagerInterface, ContainerAwareInterface // extends Cl
      * set output
      *
      * @param OutputInterface $output
+     *
+     * @return Manager
      */
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
+
+        return $this;
+    }
+
+    /**
+     * set log level
+     * 
+     * @param int $logLevel
+     *
+     * @return Manager
+     */
+    public function setLogLevel($logLevel)
+    {
+        $this->logLevel = $logLevel;
+
+        return $this;
     }
 
 }
