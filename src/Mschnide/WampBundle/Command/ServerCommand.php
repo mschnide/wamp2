@@ -2,12 +2,11 @@
 
 namespace Mschnide\WampBundle\Command;
 
-use Mschnide\WampBundle\WAMP\AuthenticationProvider;
-use Mschnide\WampBundle\WAMP\Manager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Thruway\Peer\Router;
+use Thruway\Transport\InternalClientTransportProvider;
 use Thruway\Transport\RatchetTransportProvider;
 
 /**
@@ -53,13 +52,16 @@ class ServerCommand extends ContainerAwareCommand
         }
 
         $manager = $this->getContainer()->get('mschnide_wamp.manager');
+        $client = $this->getContainer()->get('mschnide_wamp.internalclient');
         $authProvider = $this->getContainer()->get('mschnide_wamp.authenticationprovider');
         $onOpenTransporter = $this->getContainer()->get('mschnide_wamp.onopentransport');
 
         $transportProvider = new RatchetTransportProvider($server, $port);
+        $internalTransportProvider = new InternalClientTransportProvider($client);
 
         $router = new Router(null, $manager);
         $router->addTransportProvider($transportProvider);
+        $router->addTransportProvider($internalTransportProvider);
         $router->setAuthenticationProvider($authProvider);
         $router->onOpen($onOpenTransporter);
 
