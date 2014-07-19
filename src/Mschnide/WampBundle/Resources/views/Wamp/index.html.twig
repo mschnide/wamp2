@@ -58,6 +58,13 @@
                     console.log("2: Successfully made the second socket connection.");
                     $scope.messages.push("Successfully made the second socket connection.");
                     $scope.$apply();
+
+                    //subscribe to a topic
+                    function onevent(args) {
+                        console.log("2: Response to event com.mschnide.wamp.echo: " + args[0]);
+                        $scope.messages.push("Response to event com.mschnide.wamp.echo: " + args[0]);
+                        $scope.$apply();
+                    }
                 };
 
                 connection2.onclose = function(reason, details) {
@@ -72,6 +79,20 @@
 
                     //call a remote procedure
                     connection2.session.call('com.mschnide.wamp.add2', [2, 3]).then(
+                        function(res) {
+                            console.log("Result:", res);
+                            $scope.messages.push("RPC Call Result: " + res);
+                            $scope.$apply();
+                        },
+                        function(error) {
+                            console.log("2: RPC Call Failure: " + error);
+                            $scope.messages.push("RPC Call Failure: " + error);
+                            $scope.$apply();
+                        }
+                    );
+
+                    //call a remote procedure
+                    connection2.session.call('com.mschnide.wamp.echo', ['Call from Session 2']).then(
                         function(res) {
                             console.log("Result:", res);
                             $scope.messages.push("RPC Call Result: " + res);
