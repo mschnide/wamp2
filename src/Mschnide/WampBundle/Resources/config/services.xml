@@ -16,17 +16,21 @@
 
     <services>
         <service id="mschnide_wamp.manager" class="%mschnide_wamp.manager.class%">
+            <tag name="monolog.logger" channel="wamp.manager" />
             <argument type="service" id="service_container" />
             <argument>%mschnide_wamp.manager.realm%</argument>
         </service>
         <service id="mschnide_wamp.internalclient" class="%mschnide_wamp.internalclient.class%">
+            <tag name="monolog.logger" channel="wamp.internalclient" />
             <argument type="service" id="service_container" />
             <argument>%mschnide_wamp.manager.realm%</argument>
         </service>
         <service id="mschnide_wamp.authenticationprovider" class="%mschnide_wamp.authenticationprovider.class%">
+            <tag name="monolog.logger" channel="wamp.authenticationprovider" />
             <argument type="service" id="service_container" />
         </service>
         <service id="mschnide_wamp.onopentransport" class="%mschnide_wamp.onopentransport.class%">
+            <tag name="monolog.logger" channel="wamp.onopentransport" />
             <argument type="service" id="service_container" />
         </service>
     </services>

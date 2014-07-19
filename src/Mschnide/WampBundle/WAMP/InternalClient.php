@@ -102,8 +102,10 @@ class InternalClient extends Client implements ContainerAwareInterface
      * 
      * @return string
      */
-    protected function getEcho($msg)
+    public function getEcho($msg)
     {
+        $this->output->writeln('echo: ' . print_r($msg, true));
+
         return $msg;
     }
 
@@ -114,8 +116,10 @@ class InternalClient extends Client implements ContainerAwareInterface
      *
      * @return float
      */
-    protected function getAdd2($parameters = array())
+    public function getAdd2($parameters = array())
     {
+        $this->output->writeln('add2: ' . print_r($parameters, true));
+
         return array_sum($parameters);
     }
 

@@ -52,7 +52,9 @@ class ServerCommand extends ContainerAwareCommand
         }
 
         $manager = $this->getContainer()->get('mschnide_wamp.manager');
+        $manager->setOutput($this->output);
         $client = $this->getContainer()->get('mschnide_wamp.internalclient');
+        $client->setOutput($this->output);
         $authProvider = $this->getContainer()->get('mschnide_wamp.authenticationprovider');
         $onOpenTransporter = $this->getContainer()->get('mschnide_wamp.onopentransport');
 
@@ -62,8 +64,8 @@ class ServerCommand extends ContainerAwareCommand
         $router = new Router(null, $manager);
         $router->addTransportProvider($transportProvider);
         $router->addTransportProvider($internalTransportProvider);
-        $router->setAuthenticationProvider($authProvider);
-        $router->onOpen($onOpenTransporter);
+        //$router->setAuthenticationProvider($authProvider);
+        //$router->onOpen($onOpenTransporter);
 
 
         $this->output->writeln('Starting wamp: ' . $server . ':' . $port);
