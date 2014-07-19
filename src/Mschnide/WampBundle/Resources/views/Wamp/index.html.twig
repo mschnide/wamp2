@@ -31,19 +31,19 @@
                     $scope.$apply();
 
                     session.subscribe('com.mschnide.wamp.echo', onevent).then(
-                                    function(subscription) {
-                                        $scope.subscribe = true;
-                                        console.log("subscription", subscription);
-                                        $scope.messages.push("Subscription Success: " + subscription.topic);
-                                        $scope.$apply();
+                        function(subscription) {
+                            $scope.subscribe = true;
+                            console.log("subscription", subscription);
+                            $scope.messages.push("Subscription Success: " + subscription.topic);
+                            $scope.$apply();
 
-                                    },
-                                    function(error) {
-                                        console.log("1: Subscription Failure: " + error);
-                                        $scope.messages.push("Subscription Failure: " + error);
-                                        $scope.$apply();
-                                    }
-                                );
+                        },
+                        function(error) {
+                            console.log("1: Subscription Failure: " + error);
+                            $scope.messages.push("Subscription Failure: " + error);
+                            $scope.$apply();
+                        }
+                    );
 
                     //subscribe to a topic
                     function onevent(args) {
