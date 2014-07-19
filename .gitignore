@@ -17,6 +17,7 @@ composer.phar
 
 # other
 /nbproject/
+nbproject
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 /build/
