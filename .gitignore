@@ -16,7 +16,7 @@ app/config/parameters.yml
 composer.phar
 
 # other
-/nbproject/private/
+/nbproject/
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 /build/
