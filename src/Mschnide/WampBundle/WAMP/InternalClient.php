@@ -12,7 +12,7 @@ use Thruway\Transport\TransportInterface;
 /**
  * Description of Manager
  *
- * @author markus
+ * @author Markus Schnider <mschnide@gmail.com>
  */
 class InternalClient extends Client implements ContainerAwareInterface
 {
@@ -83,8 +83,16 @@ class InternalClient extends Client implements ContainerAwareInterface
     public function onSessionStart($session, $transport)
     {
         $this->output->writeln('Internal Session Started');
-        $this->getCallee()->register($session, 'com.myapp.hello', array($this, 'getEcho'));
-        $this->getCallee()->register($session, 'com.myapp.add2', array($this, 'getAdd2'));
+
+        $functions = $this->container->getParameter('mschnide_wamp.client.functions');
+        foreach ($functions as $function) {
+            $service = $this->container->get($function);
+            if ($service instanceof Functions\FunctionInterface) {
+                $name = $service->getName();
+                $call = array($service, $service->getFunctionName());
+                $this->getCallee()->register($session, $name, $call);
+            }
+        }
     }
 
     /**

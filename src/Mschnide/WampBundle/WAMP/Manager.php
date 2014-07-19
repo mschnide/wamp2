@@ -10,7 +10,7 @@ use Thruway\ManagerInterface;
 /**
  * Description of Manager
  *
- * @author markus
+ * @author Markus Schnider <mschnide@gmail.com>
  */
 class Manager implements ManagerInterface, ContainerAwareInterface // extends Client
 {

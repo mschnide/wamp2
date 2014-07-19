@@ -43,10 +43,11 @@ class ServerCommand extends ContainerAwareCommand
         $this->output = $output;
 
         $server = $this->input->getArgument('server');
-        $port = (int) $this->input->getArgument('port');
         if (empty($server)) {
             $server = $this->getContainer()->getParameter('mschnide_wamp.server');
         }
+
+        $port = (int) $this->input->getArgument('port');
         if ($port <= 0) {
             $port = (int) $this->getContainer()->getParameter('mschnide_wamp.port');
         }
@@ -64,7 +65,6 @@ class ServerCommand extends ContainerAwareCommand
         $router->addTransportProvider($transportProvider);
         $router->addTransportProvider($internalTransportProvider);
         //$router->setAuthenticationProvider($authProvider);
-
 
         $this->output->writeln('Starting wamp: ' . $server . ':' . $port);
         $router->start();

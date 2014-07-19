@@ -11,11 +11,16 @@
         <parameter key="mschnide_wamp.manager.class">Mschnide\WampBundle\WAMP\Manager</parameter>
         <parameter key="mschnide_wamp.manager.realm">realm1</parameter>
         <parameter key="mschnide_wamp.authenticationprovider.class">Mschnide\WampBundle\WAMP\AuthenticationProvider</parameter>
-        <parameter key="mschnide_wamp.onopentransport.class">Mschnide\WampBundle\WAMP\OnOpenTransport</parameter>
-        <parameter key="mschnide_wamp.client.functions" type="collection"/>
+        <parameter key="mschnide_wamp.client.functions" type="collection">
+            <parameter>mschnide_wamp.function.echo</parameter>
+            <parameter>mschnide_wamp.function.add</parameter>
+        </parameter>
     </parameters>
 
     <services>
+        <service id="mschnide_wamp.function.echo" class="Mschnide\WampBundle\WAMP\Functions\EchoFunction" />
+        <service id="mschnide_wamp.function.add" class="Mschnide\WampBundle\WAMP\Functions\AddFunction" />
+
         <service id="mschnide_wamp.manager" class="%mschnide_wamp.manager.class%">
             <tag name="monolog.logger" channel="wamp.manager" />
             <argument type="service" id="service_container" />
