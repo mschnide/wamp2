@@ -52,16 +52,16 @@ class ServerCommand extends ContainerAwareCommand
             $port = (int) $this->getContainer()->getParameter('mschnide_wamp.port');
         }
 
+        $manager = $this->getContainer()->get('mschnide_wamp.manager');
+        $authProvider = $this->getContainer()->get('mschnide_wamp.authenticationprovider');
+        $onOpenTransporter = $this->getContainer()->get('mschnide_wamp.onopentransport');
+
         $transportProvider = new RatchetTransportProvider($server, $port);
 
-        $router = new Router();
+        $router = new Router(null, $manager);
         $router->addTransportProvider($transportProvider);
-        $router->setManager(
-            $this->getContainer()->get('mschnide_wamp.manager'));
-        $router->setAuthenticationProvider(
-            $this->getContainer()->get('mschnide_wamp.authenticationprovider'));
-        $router->onOpen(
-            $this->getContainer()->get('mschnide_wamp.onopentransport'));
+        $router->setAuthenticationProvider($authProvider);
+        $router->onOpen($onOpenTransporter);
 
 
         $this->output->writeln('Starting wamp: ' . $server . ':' . $port);
