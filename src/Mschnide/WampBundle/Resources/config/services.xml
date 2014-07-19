@@ -12,6 +12,7 @@
         <parameter key="mschnide_wamp.manager.realm">realm1</parameter>
         <parameter key="mschnide_wamp.authenticationprovider.class">Mschnide\WampBundle\WAMP\AuthenticationProvider</parameter>
         <parameter key="mschnide_wamp.onopentransport.class">Mschnide\WampBundle\WAMP\OnOpenTransport</parameter>
+        <parameter key="mschnide_wamp.client.functions" type="collection"/>
     </parameters>
 
     <services>
@@ -27,10 +28,6 @@
         </service>
         <service id="mschnide_wamp.authenticationprovider" class="%mschnide_wamp.authenticationprovider.class%">
             <tag name="monolog.logger" channel="wamp.authenticationprovider" />
-            <argument type="service" id="service_container" />
-        </service>
-        <service id="mschnide_wamp.onopentransport" class="%mschnide_wamp.onopentransport.class%">
-            <tag name="monolog.logger" channel="wamp.onopentransport" />
             <argument type="service" id="service_container" />
         </service>
     </services>
