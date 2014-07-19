@@ -103,32 +103,4 @@ class InternalClient extends Client implements ContainerAwareInterface
         // overwritten to start nothing
     }
 
-    /**
-     * get echo
-     *
-     * @param string $msg
-     * 
-     * @return string
-     */
-    public function getEcho($msg)
-    {
-        $this->output->writeln('echo: ' . print_r($msg, true));
-
-        return $msg;
-    }
-
-    /**
-     * get add2
-     *
-     * @param array $parameters
-     *
-     * @return float
-     */
-    public function getAdd2($parameters = array())
-    {
-        $this->output->writeln('add2: ' . print_r($parameters, true));
-
-        return array_sum($parameters);
-    }
-
 }
