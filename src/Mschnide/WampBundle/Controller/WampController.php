@@ -14,6 +14,8 @@ class WampController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $port = $this->container->getParameter('mschnide_wamp.port');
+
+        return array('port' => $port);
     }
 }
